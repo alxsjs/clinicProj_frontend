@@ -1,0 +1,110 @@
+/* =========================
+   App.css
+   ========================= */
+
+/* Reset & Body */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #b3ccee;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 0;
+  min-height: 100vh;
+}
+
+/* App Container */
+.app-container {
+  width: 500px;
+  background-color: #e6f0fa;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.app-container h1 {
+  text-align: center;
+  color: #10367d;
+  margin-bottom: 20px;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #10367d;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #a7cff8;
+}
+
+/* Form Inputs & Buttons */
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #10367d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #0d2a5a;
+}
+
+/* Card Lists (Patients, Doctors, Appointments) */
+.card-list {
+  margin-top: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin: 0 0 8px 0;
+  color: #10367d;
+}
+
+.card p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #333;
+}
