@@ -23,7 +23,6 @@ A **Full Stack CRUD Application** for managing clinic operations, including pati
 * Responsive user interface with navigation tabs
 
 ---
-
 ## 🛠 Technology Stack
 
 ### Frontend
@@ -110,4 +109,5 @@ A **Full Stack CRUD Application** for managing clinic operations, including pati
 
 ---
 ### Screenshots 
-()
+(<img width="704" height="179" alt="image" src="https://github.com/user-attachments/assets/46118495-22ac-4c41-a841-60d5a95364bd" />
+)
