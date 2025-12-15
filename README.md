@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Clinic Appointment System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A **Full Stack CRUD Application** for managing clinic operations, including patients, doctors, and appointments.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🌐 Live Links
 
-### `npm start`
+* **Frontend:** https://clinic-proj-frontend.vercel.app/
+* **Backend API:** [https://se-backend-5mmf.onrender.com](https://se-backend-5mmf.onrender.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Features
 
-### `npm test`
+* Complete CRUD operations (Create, Read, Update, Delete)
+* Three main entities:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  * Patients
+  * Doctors
+  * Appointments
+* Form validation for all inputs
+* Responsive user interface with navigation tabs
+* Fully deployed full-stack application
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠 Technology Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* React.js
+* CSS
 
-### `npm run eject`
+### Backend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Node.js
+* Express.js
+* MongoDB
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* **Frontend:** Vercel
+* **Backend:** Render
 
-### `npm run build` fails to minify
+### Database
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* MongoDB Atlas
+
+---
+
+## 🔌 API Endpoints
+
+### Patients
+
+* `GET /patients` – Retrieve all patients
+* `POST /patients` – Create a new patient
+* `PUT /patients/:id` – Update a patient
+* `DELETE /patients/:id` – Delete a patient
+
+### Doctors
+
+* `GET /doctors` – Retrieve all doctors
+* `POST /doctors` – Create a new doctor
+* `PUT /doctors/:id` – Update a doctor
+* `DELETE /doctors/:id` – Delete a doctor
+
+### Appointments
+
+* `GET /appointments` – Retrieve all appointments
+* `POST /appointments` – Create a new appointment
+* `PUT /appointments/:id` – Update an appointment
+* `DELETE /appointments/:id` – Delete an appointment
+
+---
+
+## ⚙️ Setup Instructions
+
+### Backend Setup
+
+1. Clone the repository
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file and add your MongoDB connection string:
+
+   ```env
+   MONGODB_URI=your_mongodb_uri_here
+   ```
+4. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+### Frontend Setup
+
+1. Clone the repository
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+---
+
+## 📸 Screenshots
+
+*(Add screenshots of the application here)*
