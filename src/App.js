@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+
+const API_URL = "https://clinicproj-backend-1.onrender.com/"; // ✅ DEPLOYED BACKEND
 
 function App() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -8,226 +10,188 @@ function App() {
      Form States
   ==================== */
   const [form, setForm] = useState({ name: "", birthDate: "", email: "", phone: "" });
-  const [doctorForm, setDoctorForm] = useState({ name: "", specialty: "", email: "", phone: "" });
-  const [appointmentForm, setAppointmentForm] = useState({ patient: "", doctor: "", date: "" });
+  const [doctorForm, setDoctorForm] = useState({ name: "", specialty: "" });
+  const [appointmentForm, setAppointmentForm] = useState({
+    patient: "",
+    doctor: "",
+    date: "",
+    time: ""
+  });
 
   /* ====================
-     Data Lists
+     Data States
   ==================== */
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
 
   /* ====================
-     Handlers
+     Fetch Data
   ==================== */
-  const handlePatientSubmit = (e) => {
+  useEffect(() => {
+    fetchPatients();
+    fetchDoctors();
+    fetchAppointments();
+  }, []);
+
+  const fetchPatients = async () => {
+    const res = await fetch(`${API_URL}/patients`);
+    const data = await res.json();
+    setPatients(data);
+  };
+
+  const fetchDoctors = async () => {
+    const res = await fetch(`${API_URL}/doctors`);
+    const data = await res.json();
+    setDoctors(data);
+  };
+
+  const fetchAppointments = async () => {
+    const res = await fetch(`${API_URL}/appointments`);
+    const data = await res.json();
+    setAppointments(data);
+  };
+
+  /* ====================
+     CREATE
+  ==================== */
+  const handlePatientSubmit = async (e) => {
     e.preventDefault();
-    setPatients([...patients, form]);
+
+    await fetch(`${API_URL}/patients`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
     setForm({ name: "", birthDate: "", email: "", phone: "" });
+    fetchPatients();
   };
 
-  const handleDoctorSubmit = (e) => {
+  const handleDoctorSubmit = async (e) => {
     e.preventDefault();
-    setDoctors([...doctors, doctorForm]);
+
+    await fetch(`${API_URL}/doctors`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(doctorForm),
+    });
+
     setDoctorForm({ name: "", specialty: "" });
+    fetchDoctors();
   };
 
-  const handleAppointmentSubmit = (e) => {
+  const handleAppointmentSubmit = async (e) => {
     e.preventDefault();
-    setAppointments([...appointments, appointmentForm]);
-    setAppointmentForm({ patient: "", doctor: "", date: "" });
+
+    await fetch(`${API_URL}/appointments`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appointmentForm),
+    });
+
+    setAppointmentForm({ patient: "", doctor: "", date: "", time: "" });
+    fetchAppointments();
   };
 
   /* ====================
-     Edit/Delete Handlers
+     DELETE
   ==================== */
-  const handleEditPatient = (index) => {
-    setForm(patients[index]);
-    handleDeletePatient(index);
+  const handleDeletePatient = async (id) => {
+    await fetch(`${API_URL}/patients/${id}`, { method: "DELETE" });
+    fetchPatients();
   };
-  const handleDeletePatient = (index) => setPatients(patients.filter((_, i) => i !== index));
 
-  const handleEditDoctor = (index) => {
-    setDoctorForm(doctors[index]);
-    handleDeleteDoctor(index);
+  const handleDeleteDoctor = async (id) => {
+    await fetch(`${API_URL}/doctors/${id}`, { method: "DELETE" });
+    fetchDoctors();
   };
-  const handleDeleteDoctor = (index) => setDoctors(doctors.filter((_, i) => i !== index));
 
-  const handleEditAppointment = (index) => {
-    setAppointmentForm(appointments[index]);
-    handleDeleteAppointment(index);
+  const handleDeleteAppointment = async (id) => {
+    await fetch(`${API_URL}/appointments/${id}`, { method: "DELETE" });
+    fetchAppointments();
   };
-  const handleDeleteAppointment = (index) => setAppointments(appointments.filter((_, i) => i !== index));
 
   /* ====================
-     JSX Return
+     JSX
   ==================== */
   return (
     <div className="app-container">
       <h1>CLINIC APPOINTMENT</h1>
 
       <div className="navbar">
-        <button
-          className={activeTab === "patients" ? "active" : ""}
-          onClick={() => setActiveTab("patients")}
-        >
-          Patients
-        </button>
-        <button
-          className={activeTab === "doctors" ? "active" : ""}
-          onClick={() => setActiveTab("doctors")}
-        >
-          Doctors
-        </button>
-        <button
-          className={activeTab === "appointments" ? "active" : ""}
-          onClick={() => setActiveTab("appointments")}
-        >
-          Appointments
-        </button>
+        <a className={activeTab === "patients" ? "active" : ""} onClick={() => setActiveTab("patients")}>Patients</a>
+        <a className={activeTab === "doctors" ? "active" : ""} onClick={() => setActiveTab("doctors")}>Doctors</a>
+        <a className={activeTab === "appointments" ? "active" : ""} onClick={() => setActiveTab("appointments")}>Appointments</a>
       </div>
 
-      <div className="tab-content">
-        {/* ==================== Patients Tab ==================== */}
-        {activeTab === "patients" && (
-          <div>
-            <form onSubmit={handlePatientSubmit}>
-              <input
-                type="text"
-                placeholder="Name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                required
-              />
-              <input
-                type="date"
-                placeholder="Birth Date"
-                value={form.birthDate}
-                onChange={(e) => setForm({ ...form, birthDate: e.target.value })}
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                required
-              />
-              <button type="submit">Add Patient</button>
-            </form>
+      {/* ==================== PATIENTS ==================== */}
+      {activeTab === "patients" && (
+        <>
+          <form onSubmit={handlePatientSubmit}>
+            <input placeholder="Name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+            <input type="date" value={form.birthDate} onChange={e => setForm({ ...form, birthDate: e.target.value })} required />
+            <input type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+            <input placeholder="Phone" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} required />
+            <button>Add Patient</button>
+          </form>
 
-            <div className="card-list">
-              {patients.map((p, i) => (
-                <div key={i} className="card">
-                  <h3>{p.name}</h3>
-                  <p>Birth Date: {p.birthDate}</p>
-                  <p>Email: {p.email}</p>
-                  <p>Phone: {p.phone}</p>
-                  <div className="card-buttons">
-                    <button className="edit-btn" onClick={() => handleEditPatient(i)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDeletePatient(i)}>Delete</button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="card-list">
+            {patients.map(p => (
+              <div key={p._id} className="card">
+                <h3>{p.name}</h3>
+                <p>Email: {p.email}</p>
+                <p>Phone: {p.phone}</p>
+                <button className="delete-btn" onClick={() => handleDeletePatient(p._id)}>Delete</button>
+              </div>
+            ))}
           </div>
-        )}
+        </>
+      )}
 
-        {/* ==================== Doctors Tab ==================== */}
-        {activeTab === "doctors" && (
-          <div>
-            <form onSubmit={handleDoctorSubmit}>
-              <input
-                type="text"
-                placeholder="Name"
-                value={doctorForm.name}
-                onChange={(e) => setDoctorForm({ ...doctorForm, name: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Specialty"
-                value={doctorForm.specialty}
-                onChange={(e) => setDoctorForm({ ...doctorForm, specialty: e.target.value })}
-                required
-              />
-              <button type="submit">Add Doctor</button>
-            </form>
+      {/* ==================== DOCTORS ==================== */}
+      {activeTab === "doctors" && (
+        <>
+          <form onSubmit={handleDoctorSubmit}>
+            <input placeholder="Name" value={doctorForm.name} onChange={e => setDoctorForm({ ...doctorForm, name: e.target.value })} required />
+            <input placeholder="Specialty" value={doctorForm.specialty} onChange={e => setDoctorForm({ ...doctorForm, specialty: e.target.value })} required />
+            <button>Add Doctor</button>
+          </form>
 
-            <div className="card-list">
-              {doctors.map((d, i) => (
-                <div key={i} className="card">
-                  <h3>{d.name}</h3>
-                  <p>Specialty: {d.specialty}</p>
-                  {d.email && <p>Email: {d.email}</p>}
-                  {d.phone && <p>Phone: {d.phone}</p>}
-                  <div className="card-buttons">
-                    <button className="edit-btn" onClick={() => handleEditDoctor(i)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDeleteDoctor(i)}>Delete</button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="card-list">
+            {doctors.map(d => (
+              <div key={d._id} className="card">
+                <h3>{d.name}</h3>
+                <p>{d.specialty}</p>
+                <button className="delete-btn" onClick={() => handleDeleteDoctor(d._id)}>Delete</button>
+              </div>
+            ))}
           </div>
-        )}
+        </>
+      )}
 
-        {/* ==================== Appointments Tab ==================== */}
-        {activeTab === "appointments" && (
-          <div>
-            <form onSubmit={handleAppointmentSubmit}>
-              <input
-                type="text"
-                placeholder="Patient Name"
-                value={appointmentForm.patient}
-                onChange={(e) => setAppointmentForm({ ...appointmentForm, patient: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Doctor Name"
-                value={appointmentForm.doctor}
-                onChange={(e) => setAppointmentForm({ ...appointmentForm, doctor: e.target.value })}
-                required
-              />
-              <input
-                type="date"
-                value={appointmentForm.date}
-                onChange={(e) => setAppointmentForm({ ...appointmentForm, date: e.target.value })}
-                required
-              />
-              <input
-                type="time"
-                value={appointmentForm.time || ""}
-                onChange={(e) => setAppointmentForm({ ...appointmentForm, time: e.target.value })}
-                required
-              />
-              <button type="submit">Add Appointment</button>
-            </form>
+      {/* ==================== APPOINTMENTS ==================== */}
+      {activeTab === "appointments" && (
+        <>
+          <form onSubmit={handleAppointmentSubmit}>
+            <input placeholder="Patient" value={appointmentForm.patient} onChange={e => setAppointmentForm({ ...appointmentForm, patient: e.target.value })} required />
+            <input placeholder="Doctor" value={appointmentForm.doctor} onChange={e => setAppointmentForm({ ...appointmentForm, doctor: e.target.value })} required />
+            <input type="date" value={appointmentForm.date} onChange={e => setAppointmentForm({ ...appointmentForm, date: e.target.value })} required />
+            <input type="time" value={appointmentForm.time} onChange={e => setAppointmentForm({ ...appointmentForm, time: e.target.value })} required />
+            <button>Add Appointment</button>
+          </form>
 
-            <div className="card-list">
-              {appointments.map((a, i) => (
-                <div key={i} className="card">
-                  <h3>{a.patient} - {a.doctor}</h3>
-                  <p>Date: {a.date}</p>
-                  <p>Time: {a.time}</p>
-                  <div className="card-buttons">
-                    <button className="edit-btn" onClick={() => handleEditAppointment(i)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDeleteAppointment(i)}>Delete</button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="card-list">
+            {appointments.map(a => (
+              <div key={a._id} className="card">
+                <h3>{a.patient} → {a.doctor}</h3>
+                <p>{a.date} at {a.time}</p>
+                <button className="delete-btn" onClick={() => handleDeleteAppointment(a._id)}>Delete</button>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 }
