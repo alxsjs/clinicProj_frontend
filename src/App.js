@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const API_URL = "https://clinicproj-backend-1.onrender.com/"; // ✅ DEPLOYED BACKEND
+const API_URL = "https://clinic-backend2.onrender.com/"; // ✅ DEPLOYED BACKEND
 
 function App() {
   const [activeTab, setActiveTab] = useState("patients");
