@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const API_URL = "https://clinic-backend2.onrender.com/"; // ✅ DEPLOYED BACKEND
+const API_URL = "https://clinic-backend2.onrender.com"; // ✅ DEPLOYED BACKEND
 
 function App() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -35,19 +35,19 @@ function App() {
   }, []);
 
   const fetchPatients = async () => {
-    const res = await fetch(`${API_URL}/patients`);
+    const res = await fetch(`${API_URL}/api/patients`);
     const data = await res.json();
     setPatients(data);
   };
 
   const fetchDoctors = async () => {
-    const res = await fetch(`${API_URL}/doctors`);
+    const res = await fetch(`${API_URL}/api/doctors`);
     const data = await res.json();
     setDoctors(data);
   };
 
   const fetchAppointments = async () => {
-    const res = await fetch(`${API_URL}/appointments`);
+    const res = await fetch(`${API_URL}/api/appointments`);
     const data = await res.json();
     setAppointments(data);
   };
@@ -57,39 +57,33 @@ function App() {
   ==================== */
   const handlePatientSubmit = async (e) => {
     e.preventDefault();
-
-    await fetch(`${API_URL}/patients`, {
+    await fetch(`${API_URL}/api/patients`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-
     setForm({ name: "", birthDate: "", email: "", phone: "" });
     fetchPatients();
   };
 
   const handleDoctorSubmit = async (e) => {
     e.preventDefault();
-
-    await fetch(`${API_URL}/doctors`, {
+    await fetch(`${API_URL}/api/doctors`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(doctorForm),
     });
-
     setDoctorForm({ name: "", specialty: "" });
     fetchDoctors();
   };
 
   const handleAppointmentSubmit = async (e) => {
     e.preventDefault();
-
-    await fetch(`${API_URL}/appointments`, {
+    await fetch(`${API_URL}/api/appointments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appointmentForm),
     });
-
     setAppointmentForm({ patient: "", doctor: "", date: "", time: "" });
     fetchAppointments();
   };
@@ -98,17 +92,17 @@ function App() {
      DELETE
   ==================== */
   const handleDeletePatient = async (id) => {
-    await fetch(`${API_URL}/patients/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/api/patients/${id}`, { method: "DELETE" });
     fetchPatients();
   };
 
   const handleDeleteDoctor = async (id) => {
-    await fetch(`${API_URL}/doctors/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/api/doctors/${id}`, { method: "DELETE" });
     fetchDoctors();
   };
 
   const handleDeleteAppointment = async (id) => {
-    await fetch(`${API_URL}/appointments/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/api/appointments/${id}`, { method: "DELETE" });
     fetchAppointments();
   };
 
