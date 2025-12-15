@@ -67,7 +67,6 @@ function App() {
     <div className="app-container">
       <h1>CLINIC APPOINTMENT</h1>
 
-      {/* ==================== Navbar ==================== */}
       <div className="navbar">
         <button
           className={activeTab === "patients" ? "active" : ""}
