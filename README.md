@@ -7,7 +7,7 @@ A **Full Stack CRUD Application** for managing clinic operations, including pati
 ## 🌐 Live Links
 
 * **Frontend:** https://clinic-proj-frontend.vercel.app/
-* **Backend API:** [https://se-backend-5mmf.onrender.com](https://se-backend-5mmf.onrender.com)
+* **Backend API:** https://clinicproj-backend-1.onrender.com/
 
 ---
 
@@ -21,7 +21,6 @@ A **Full Stack CRUD Application** for managing clinic operations, including pati
   * Appointments
 * Form validation for all inputs
 * Responsive user interface with navigation tabs
-* Fully deployed full-stack application
 
 ---
 
@@ -110,7 +109,3 @@ A **Full Stack CRUD Application** for managing clinic operations, including pati
    ```
 
 ---
-
-## 📸 Screenshots
-
-*(Add screenshots of the application here)*
